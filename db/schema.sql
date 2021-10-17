@@ -9,6 +9,8 @@ CREATE TABLE employee {
     last_name VARCHAR(30) NOT NULL,
     role_id INT,
     manager_id INT,
+    FOREIGN KEY (manager_id),
+    FOREIGN KEY (role_id)
 };
 
 CREATE TABLE role {
@@ -16,11 +18,12 @@ CREATE TABLE role {
     title VARCHAR(30) NOT NULL,
     salary DECIMAL(10,2) NOT NULL,
     department_id INT,
+    FOREIGN KEY (department_id)
 };
 
 CREATE TABLE department {
     id INT PRIMARY AUTO_INCREMENT NOT NULL,
-    name VARCHAR(30) NOT NULL,
+    name VARCHAR(30) NOT NULL
 };
 
 INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ("John", "Smith", 1, 1);
