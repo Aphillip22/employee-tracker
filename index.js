@@ -1,7 +1,7 @@
 //require packages
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-const console = require('console.table');
+const console = require("console.table");
 
 //connect to server
 const connection = mysql.createConnection({
@@ -60,11 +60,11 @@ function dbSearch() {
 
 //function to view all employees
 function viewEmployees() {
-    connection.query(
-        "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, roles.title, roles.salary, roles.id, department.id FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id",
-        function (err, result) {
+        const query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, roles.title, roles.salary, roles.id, department.id FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id"
+        
+        connection.query(query, function (err, res) {
             if (err) throw err;
-            console.table(result)
+            console.table(res)
             //prompt user to make a selection again
             dbSearch();
         }
@@ -73,11 +73,10 @@ function viewEmployees() {
 
 //function to view departments
 function viewDepartments() {
-    connection.query(
-        "SELECT * FROM department",
-        function (err, result) {
+        const query = "SELECT * FROM department"
+        connection.query(query, function (err, res) {
             if (err) throw err;
-            console.table(result)
+            console.table(res)
             //prompt user to make a selection again
             dbSearch();
         }
@@ -86,11 +85,10 @@ function viewDepartments() {
 
 //function to view roles
 function viewRoles() {
-    connection.query(
-        "SELECT roles.id, roles.title, roles.salary, roles.department_id, department.id, department.name FROM roles LEFT JOIN department on roles.department_id = department.id",
-        function (err, result) {
+        const query = "SELECT roles.id, roles.title, roles.salary, roles.department_id, department.id, department.name FROM roles LEFT JOIN department on roles.department_id = department.id"
+        connection.query(query, function (err, res) {
             if (err) throw err;
-            console.table(result);
+            console.table(res)
             //prompt user to make a selection again
             dbSearch();
         }
@@ -105,8 +103,8 @@ const departmentResponse = [];
 
 //functions to push table data to inquirer prompts
 function findRole() {
-
-    connection.query("SELECT * FROM role", function (err, data) {
+    const query = "SELECT * FROM role"
+    connection.query(query, function (err, data) {
         if (err) throw err;
         for (i = 0; i < data.length; i++) {
             roleResponse.push(data[i].id + "-" + data[i].title)
@@ -115,7 +113,8 @@ function findRole() {
 };
 
 function findEmployee() {
-    connection.query("SELECT * FROM employee", function (err, data) {
+    const query = "SELECT * FROM employee"
+    connection.query(query, function (err, data) {
         if (err) throw err;
         for (i = 0; i < data.length; i++) {
             employeeResponse.push(data[i].id + "-" + data[i].first_name + " " + data[i].last_name)
@@ -124,7 +123,8 @@ function findEmployee() {
 };
 
 function findDepartment() {
-    connection.query("SELECT * FROM department", function (err, data) {
+    const query = "SELECT * FROM department"
+    connection.query(query, function (err, data) {
         if (err) throw err;
         for (i = 0; i < data.length; i++) {
             departmentResponse.push(data[i].id + "-" + data[i].name)
@@ -260,7 +260,7 @@ function addDepartment() {
 
 //function to update an employee role
 function updateEmployee() {
-    connection.query('SELECT * FROM employee', function (err, result) {
+    connection.query('SELECT * FROM employee', function (err, res) {
         if (err) throw err;
         inquirer
             .prompt([
@@ -280,8 +280,8 @@ function updateEmployee() {
                 }
             ])
 
-            .then(function (response) {
-                cconsole.table(response);
+            .then(function (res) {
+                cconsole.table(res)
                 const name = response.employee_name;
 
                 connection.query("SELECT * FROM role", function (err, res) {
