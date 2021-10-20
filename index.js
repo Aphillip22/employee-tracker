@@ -1,14 +1,14 @@
 //require packages
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
-const console = require("console.table");
+const cTable = require('console.table');
 
 //connect to server
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Shitballs$88",
+    password: "ThisIsAPassword123",
     database: "employee_tracker"
 });
 
