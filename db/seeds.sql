@@ -11,13 +11,13 @@ INSERT INTO employee(first_name, last_name, role_id, manager_id)
     ("Bethany", "Alleman", 5, 1),
     ("Jake", "Johnson", 4, 1);
 
-INSERT INTO role(title, salary, department_id) 
+INSERT INTO roles(title, salary, department_id) 
     VALUES
-    ('Manager', 7000000, 1),
-    ('Administration', 5000000, 2),
-    ('Engineer', 9000000, 3),
-    ('Accountant', 4000000, 4),
-    ('Designer', 6000000, 5);
+    ('Manager', 70000, 1),
+    ('Administration', 50000, 2),
+    ('Engineer', 90000, 3),
+    ('Accountant', 40000, 4),
+    ('Designer', 60000, 5);
 
 INSERT INTO department(name) 
     VALUES
