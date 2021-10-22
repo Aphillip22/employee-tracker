@@ -60,7 +60,7 @@ function dbSearch() {
 
 //function to view all employees
 function viewEmployees() {
-        const query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, roles.title, roles.salary, roles.id, department.id FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id"
+        const query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id AS title, employee.manager_id, roles.title, roles.salary, department.dept_name AS dept FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id"
         
         connection.query(query, function (err, res) {
             if (err) throw err;
@@ -85,7 +85,7 @@ function viewDepartments() {
 
 //function to view roles
 function viewRoles() {
-        const query = "SELECT roles.id, roles.title, roles.salary, roles.department_id, department.id, department.name FROM roles LEFT JOIN department on roles.department_id = department.id"
+        const query = "SELECT roles.id, roles.title, roles.salary, roles.department_id, department.id, department.dept_name FROM roles LEFT JOIN department on roles.department_id = department.id"
         connection.query(query, function (err, res) {
             if (err) throw err;
             console.table(res)
@@ -136,7 +136,7 @@ const addRole = () => {
       ])
       .then(answer => {
         connection.query(
-          'INSERT INTO department (name) VALUES (?)',
+          'INSERT INTO department (dept_name) VALUES (?)',
           [answer.department],
           function (err, res) {
             if (err) throw err;
